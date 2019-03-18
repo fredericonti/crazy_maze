@@ -11,7 +11,7 @@
 
 <body>
 
-    <div id="container">
+    <div id="container" class="perspective">
 
 
 </div>
@@ -134,15 +134,17 @@
                 // verifica se a posicao da direita esta vazia
                 var posicaoDestino = matriz[x][y + 1];
                 //                console.log("posicaoDestino",posicaoDestino);
-                if (posicaoDestino === 'empty' || posicaoDestino === 'end') {
+                if (posicaoDestino === 'empty') {
                     var posicaoAux = matriz[x][y];
                     matriz[x][y] = matriz[x][y + 1];
                     matriz[x][y + 1] = posicaoAux;
                     positionGuy.y = y + 1;
-                    // console.log('matriz', matriz[x]);
-                    //console.log("efetuou a troca")
-                    //console.log(positionGuy);
 
+                }
+
+                if(posicaoDestino === 'end'){
+                    matriz[x][y] = "empty";
+                    matriz[x][y + 1] = "win"
                 }
 
             } else if (destino === 'esquerda') {
