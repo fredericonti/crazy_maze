@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/crazymaze.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="container">
+
+
+</div>
+
+
+    <script>
+        //elements
+        var guy = document.querySelector("guy");
+        var empty = document.querySelector('.empty');
+        var container = document.querySelector('#container');
+
+        //object guy
+        var positionGuy = {
+            x: 0,
+            y: 0
+        }
+
+        //matriz
+        var linha1 = ["guy", "pipe", "empty", "empty", "empty"];
+        var linha2 = ["empty", "empty", "pipe", "empty", "empty"]
+        var linha3 = ["pipe", "empty", "empty", "empty", "empty"]
+        var linha4 = ["empty", "empty", "empty", "empty", "pipe"]
+        var linha5 = ["empty", "empty", "empty", "empty", "empty"];
+        var linha6 = ["empty", "empty", "empty", "empty", "empty"];
+        var linha7 = ["empty", "empty", "empty", "empty", "end"];
+        //array de arrays
+        var matriz = [
+            linha1,
+            linha2,
+            linha3,
+            linha4,
+            linha5,
+            linha6,
+            linha7,
+        ];
+
+        function updateMatriz(matriz) {
+            //ele apaga o html do container com essa string vazia
+            container.innerHTML = '';
+            matriz.forEach(function (elementoAtual) {
+                escreveLinha(elementoAtual);
+            });
+        }
+
+        //Primeira função:escreve uma div por coluna
+        function escreveLinha(itens) {
+            //map cria uma nova array
+            var linha = itens.map(function (item) {
+                var div = criaUmaDiv(item);
+                return div;
+            });
+
+            var containerLinha = escreveContainerLinha(linha);
+            // console.log(containerLinha);
+            //append chama a função
+            container.append(containerLinha);
+
+        };
+
+        function criaUmaDiv(classname) {
+            //sintaxe para criar uma div
+            var linhaDiv = document.createElement('div');
+            //class name vem do argumento da função
+            linhaDiv.className = classname;
+            return linhaDiv;
+        }
+
+        function escreveContainerLinha(items) {
+            var linhaDiv = criaUmaDiv("linha");
+
+            items.forEach(function (elemento) {
+                linhaDiv.append(elemento);
+            })
+            return linhaDiv;
+        };
+
+
+        document.addEventListener('keydown', function (event) {
+            if (event.keyCode === 38) {
+                andar("cima")
+            }
+
+            if (event.keyCode === 39) {
+                andar("direita");
+            }
+
+            if (event.keyCode === 40) {
+                andar("baixo")
+            }
+
+            if (event.keyCode === 37) {
+                andar("esquerda")
+            }
+
+        });
+
+        function andar(direcao) {
+            // if (!direcao) {
+            //     return false;
+            // }
+
+            if (direcao == "direita") {
+                troca("direita");
+            } else if (direcao == "esquerda") {
+                troca('esquerda');
+            } else if (direcao == "cima") {
+                troca("cima");
+            } else if (direcao == "baixo") {
+                troca("baixo");
+            }
+
+        };
+
+        function troca(destino) {
+            var x = positionGuy.x;
+            var y = positionGuy.y;
+
+
+            if (destino === 'direita') {
+                // verifica se a posicao da direita esta vazia
+                var posicaoDestino = matriz[x][y + 1];
+                //                console.log("posicaoDestino",posicaoDestino);
+                if (posicaoDestino === 'empty' || posicaoDestino === 'end') {
+                    var posicaoAux = matriz[x][y];
+                    matriz[x][y] = matriz[x][y + 1];
+                    matriz[x][y + 1] = posicaoAux;
+                    positionGuy.y = y + 1;
+                    // console.log('matriz', matriz[x]);
+                    //console.log("efetuou a troca")
+                    //console.log(positionGuy);
+
+                }
+
+            } else if (destino === 'esquerda') {
+                // verifica se a posicao da esquerda esta vazia
+                var yDestino = 0;
+                if (y > 0) {
+                    yDestino = y - 1;
+                }
+                // console.log('yDestino', yDestino);
+                var posicaoDestino = matriz[x][yDestino];
+                // console.log("posicaoDestino", posicaoDestino);
+
+                if (posicaoDestino === 'empty') {
+                    var posicaoAux = matriz[x][y];
+                    matriz[x][y] = matriz[x][yDestino];
+                    matriz[x][yDestino] = posicaoAux;
+                    positionGuy.y = yDestino;
+                    // console.log('matriz', matriz[x]);
+                    // console.log("efetuou a troca")
+                    // console.log(positionGuy);
+                }
+
+
+
+            } else if (destino === 'cima') {
+                var xDestino = 0;
+                if (x > 0) {
+                    xDestino = x - 1;
+                }
+
+                // verifica se a posicao da cima esta vazia
+                var posicaoDestino = matriz[xDestino][y];
+                console.log("posicaoDestino", posicaoDestino);
+                if (posicaoDestino === 'empty') {
+                    var posicaoAux = matriz[x][y];
+                    matriz[x][y] = matriz[xDestino][y];
+                    matriz[xDestino][y] = posicaoAux;
+                    positionGuy.x = xDestino;
+                    // console.log('matriz', matriz[x]);
+                    // console.log("efetuou a troca")
+                    // console.log(positionGuy);
+
+                }
+
+            } else if (destino === 'baixo') {
+                // verifica se a posicao baixo esta vazia
+                var posicaoDestino = matriz[x + 1][y];
+                //                console.log("posicaoDestino",posicaoDestino);
+                if (posicaoDestino === 'empty') {
+                    var posicaoAux = matriz[x][y];
+                    matriz[x][y] = matriz[x + 1][y];
+                    matriz[x + 1][y] = posicaoAux;
+                    positionGuy.x = x + 1;
+                }
+
+
+            } else {
+                return false;
+            }
+            
+            updateMatriz(matriz);
+        };
+
+
+
+
+        // inicia jogo
+        updateMatriz(matriz)
+    </script>
+</body>
+
+</html>
