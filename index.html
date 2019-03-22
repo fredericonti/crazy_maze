@@ -10,18 +10,21 @@
 </head>
 
 <body>
-
-    <div id="container" class="perspective">
-
-
-</div>
-
+    <div class="background">
+        <div id="container"></div>
+        <div id="ofim"></div>
+    </div>
 
     <script>
+
+
         //elements
         var guy = document.querySelector("guy");
         var empty = document.querySelector('.empty');
         var container = document.querySelector('#container');
+        var ofim = document.querySelector('#ofim');
+        
+        var winner = '';
 
         //object guy
         var positionGuy = {
@@ -30,13 +33,23 @@
         }
 
         //matriz
-        var linha1 = ["guy", "pipe", "empty", "empty", "empty"];
-        var linha2 = ["empty", "empty", "pipe", "empty", "empty"]
-        var linha3 = ["pipe", "empty", "empty", "empty", "empty"]
-        var linha4 = ["empty", "empty", "empty", "empty", "pipe"]
-        var linha5 = ["empty", "empty", "empty", "empty", "empty"];
-        var linha6 = ["empty", "empty", "empty", "empty", "empty"];
-        var linha7 = ["empty", "empty", "empty", "empty", "end"];
+        var linha1 = ["guy", "pipe", "empty", "empty", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "empty", "empty", "empty", "pipe", "pipe"];
+        var linha2 = ["empty", "end", "empty", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"]
+        var linha3 = ["pipe", "pipe", "pipe", "pipe", "empty", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"]
+        var linha4 = ["candy", "empty", "empty", "pipe", "empty", "empty", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"]
+        var linha5 = ["pipe", "pipe", "empty", "pipe", "empty", "pipe", "pipe", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"];
+        var linha6 = ["pipe", "pipe", "empty", "empty", "empty", "empty", "empty", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"];
+        var linha7 = ["pipe", "pipe", "empty", "pipe", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"];
+        var linha8 = ["pipe", "empty", "empty", "pipe", "empty", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"];
+        var linha9 = ["pipe", "pipe", "empty", "empty", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"];
+        var linha10 = ["pipe", "pipe", "pipe", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"];
+        var linha11 = ["pipe", "pipe", "pipe", "empty", "empty","pipe", "pipe", "pipe", "pipe", "empty", "empty", "empty", "pipe", "pipe", "pipe"];
+        var linha12 = ["pipe", "pipe", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "empty", "pipe", "empty", "pipe", "pipe", "pipe"];
+        var linha13 = ["pipe", "pipe", "pipe", "empty", "pipe", "pipe", "pipe", "empty", "empty", "empty", "pipe", "empty", "pipe", "pipe", "pipe"];
+        var linha14 = ["pipe", "pipe", "pipe", "empty", "pipe","pipe", "empty", "empty", "pipe", "pipe", "pipe", "empty", "pipe", "pipe", "pipe"];
+        var linha15 = ["pipe", "pipe", "pipe", "empty", "empty","empty", "empty", "pipe", "pipe", "pipe", "empty", "empty", "empty", "empty", "end"];
+
+
         //array de arrays
         var matriz = [
             linha1,
@@ -46,6 +59,14 @@
             linha5,
             linha6,
             linha7,
+            linha8,
+            linha9,
+            linha10,
+            linha11,
+            linha12,
+            linha13,
+            linha14,
+            linha15,
         ];
 
         function updateMatriz(matriz) {
@@ -54,7 +75,13 @@
             matriz.forEach(function (elementoAtual) {
                 escreveLinha(elementoAtual);
             });
+            
         }
+        //função final!
+        function endGame() {
+            container.innerHTML = '';
+            ofim.innerHTML = "acabou";
+        };
 
         //Primeira função:escreve uma div por coluna
         function escreveLinha(itens) {
@@ -88,7 +115,7 @@
             return linhaDiv;
         };
 
-
+        //movimento
         document.addEventListener('keydown', function (event) {
             if (event.keyCode === 38) {
                 andar("cima")
@@ -133,7 +160,6 @@
             if (destino === 'direita') {
                 // verifica se a posicao da direita esta vazia
                 var posicaoDestino = matriz[x][y + 1];
-                //                console.log("posicaoDestino",posicaoDestino);
                 if (posicaoDestino === 'empty') {
                     var posicaoAux = matriz[x][y];
                     matriz[x][y] = matriz[x][y + 1];
@@ -144,7 +170,7 @@
 
                 if(posicaoDestino === 'end'){
                     matriz[x][y] = "empty";
-                    matriz[x][y + 1] = "win"
+                    matriz[x][y + 1] = "win";
                 }
 
             } else if (destino === 'esquerda') {
@@ -153,20 +179,21 @@
                 if (y > 0) {
                     yDestino = y - 1;
                 }
-                // console.log('yDestino', yDestino);
                 var posicaoDestino = matriz[x][yDestino];
-                // console.log("posicaoDestino", posicaoDestino);
 
                 if (posicaoDestino === 'empty') {
                     var posicaoAux = matriz[x][y];
                     matriz[x][y] = matriz[x][yDestino];
                     matriz[x][yDestino] = posicaoAux;
                     positionGuy.y = yDestino;
-                    // console.log('matriz', matriz[x]);
-                    // console.log("efetuou a troca")
-                    // console.log(positionGuy);
+
                 }
 
+                if(posicaoDestino === 'end'){
+                    matriz[x][yDestino] = "empty";
+                    matriz[x][yDestino - 1] = "win";
+                    console.log("chegou")
+                }
 
 
             } else if (destino === 'cima') {
@@ -177,22 +204,16 @@
 
                 // verifica se a posicao da cima esta vazia
                 var posicaoDestino = matriz[xDestino][y];
-                console.log("posicaoDestino", posicaoDestino);
                 if (posicaoDestino === 'empty') {
                     var posicaoAux = matriz[x][y];
                     matriz[x][y] = matriz[xDestino][y];
                     matriz[xDestino][y] = posicaoAux;
                     positionGuy.x = xDestino;
-                    // console.log('matriz', matriz[x]);
-                    // console.log("efetuou a troca")
-                    // console.log(positionGuy);
 
                 }
 
             } else if (destino === 'baixo') {
-                // verifica se a posicao baixo esta vazia
                 var posicaoDestino = matriz[x + 1][y];
-                //                console.log("posicaoDestino",posicaoDestino);
                 if (posicaoDestino === 'empty') {
                     var posicaoAux = matriz[x][y];
                     matriz[x][y] = matriz[x + 1][y];
@@ -200,16 +221,15 @@
                     positionGuy.x = x + 1;
                 }
 
-
             } else {
                 return false;
             }
-            
-            updateMatriz(matriz);
+            if(posicaoDestino === "end"){
+                endGame()
+            } else {
+                updateMatriz(matriz);
+            }
         };
-
-
-
 
         // inicia jogo
         updateMatriz(matriz)
