@@ -11,7 +11,11 @@
 
 <body>
     <div class="background">
+        <div class="logo"></div>
         <div id="container"></div>
+        
+    </div>
+    <div class="final">
         <div id="ofim"></div>
     </div>
 
@@ -23,8 +27,7 @@
         var empty = document.querySelector('.empty');
         var container = document.querySelector('#container');
         var ofim = document.querySelector('#ofim');
-        
-        var winner = '';
+        var button = document.querySelector('button');
 
         //object guy
         var positionGuy = {
@@ -33,21 +36,25 @@
         }
 
         //matriz
-        var linha1 = ["guy", "pipe", "empty", "empty", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "empty", "empty", "empty", "pipe", "pipe"];
-        var linha2 = ["empty", "end", "empty", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"]
-        var linha3 = ["pipe", "pipe", "pipe", "pipe", "empty", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"]
-        var linha4 = ["candy", "empty", "empty", "pipe", "empty", "empty", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"]
-        var linha5 = ["pipe", "pipe", "empty", "pipe", "empty", "pipe", "pipe", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"];
-        var linha6 = ["pipe", "pipe", "empty", "empty", "empty", "empty", "empty", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"];
-        var linha7 = ["pipe", "pipe", "empty", "pipe", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"];
-        var linha8 = ["pipe", "empty", "empty", "pipe", "empty", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"];
-        var linha9 = ["pipe", "pipe", "empty", "empty", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"];
-        var linha10 = ["pipe", "pipe", "pipe", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe", "pipe"];
-        var linha11 = ["pipe", "pipe", "pipe", "empty", "empty","pipe", "pipe", "pipe", "pipe", "empty", "empty", "empty", "pipe", "pipe", "pipe"];
-        var linha12 = ["pipe", "pipe", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "empty", "pipe", "empty", "pipe", "pipe", "pipe"];
-        var linha13 = ["pipe", "pipe", "pipe", "empty", "pipe", "pipe", "pipe", "empty", "empty", "empty", "pipe", "empty", "pipe", "pipe", "pipe"];
-        var linha14 = ["pipe", "pipe", "pipe", "empty", "pipe","pipe", "empty", "empty", "pipe", "pipe", "pipe", "empty", "pipe", "pipe", "pipe"];
-        var linha15 = ["pipe", "pipe", "pipe", "empty", "empty","empty", "empty", "pipe", "pipe", "pipe", "empty", "empty", "empty", "empty", "end"];
+        var linha4 = ["empty", "candy2", "empty", "candy6", "candy3", "candy5", "candy4", "candy4", "candy", "empty", "empty", "candy2", "empty", "empty", "empty"]
+        var linha1 = ["guy", "pipe", "candy", "pipe", "empty", "candy4", "empty", "candy3", "empty", "candy2", "candy", "empty", "candy5", "candy", "candy3"];
+        var linha3 = ["pipe", "candy2", "empty", "pipe", "empty", "candy2", "pipe", "empty", "empty", "empty", "empty", "candy2", "candy5", "candy2", "candy5"]
+        var linha2 = ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "candy6", "candy6", "candy5", "candy4", "pipe", "candy2", "empty"]
+        var linha3 = ["candy4", "pipe", "empty", "pipe", "empty", "candy2", "candy", "empty", "empty", "empty", "empty", "pipe", "pipe", "candy2", "empty"]
+        var linha4 = ["empty", "candy", "empty", "candy2", "candy6", "empty", "empty", "pipe", "candy4", "candy2", "empty", "candy3", "candy4", "candy4", "pipe"]
+        var linha3 = ["candy3", "pipe", "empty", "pipe", "empty", "candy3", "candy5", "empty", "empty", "empty", "empty", "pipe", "pipe", "candy", "candy3"]
+        var linha3 = ["pipe", "pipe", "empty", "pipe", "empty", "candy3", "pipe", "empty", "empty", "empty", "empty", "candy5", "empty", "empty", "pipe"]
+        var linha5 = ["empty", "empty", "empty", "empty", "empty", "pipe", "candy", "candy3", "empty", "empty", "empty", "candy5", "candy2", "empty", "empty"];
+        var linha6 = ["pipe", "empty", "candy5", "candy", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "pipe", "pipe", "candy3", "pipe"];
+        var linha7 = ["candy5", "pipe", "candy2", "candy6", "candy", "empty", "candy4", "candy2", "empty", "pipe", "empty", "pipe", "candy", "pipe", "pipe"];
+        var linha8 = ["pipe", "empty", "empty", "candy3", "empty", "empty", "empty", "empty", "candy5", "candy", "empty", "empty", "empty", "pipe", "empty"];
+        var linha9 = ["candy3", "pipe", "empty", "empty", "empty", "candy2", "candy5", "empty", "candy6", "empty", "candy4", "empty", "pipe", "candy4", "pipe"];
+        var linha10 = ["empty", "candy2", "candy", "pipe", "empty", "pipe", "pipe", "pipe", "pipe", "pipe", "empty", "candy2", "pipe", "pipe", "empty"];
+        var linha11 = ["pipe", "candy4", "candy2", "empty", "empty","candy3", "empty", "empty", "pipe", "empty", "empty", "empty", "candy5", "candy4", "pipe"];
+        var linha12 = ["candy3", "pipe", "candy6", "empty", "candy5", "candy", "empty", "pipe", "candy4", "empty", "candy2", "empty", "empty", "candy6", "empty"];
+        var linha13 = ["empty", "empty", "empty", "empty", "candy6", "candy5", "candy2", "empty", "empty", "empty", "pipe", "empty", "pipe", "candy3", "empty"];
+        var linha14 = ["pipe", "pipe", "empty", "empty", "candy5","candy4", "empty", "empty", "pipe", "pipe", "pipe", "empty", "pipe", "pipe", "pipe"];
+        var linha15 = ["candy4", "candy2", "empty", "empty", "empty","empty", "empty", "candy2", "pipe", "pipe", "empty", "empty", "empty", "empty", "end"];
 
 
         //array de arrays
@@ -75,12 +82,16 @@
             matriz.forEach(function (elementoAtual) {
                 escreveLinha(elementoAtual);
             });
-            
+
         }
         //função final!
         function endGame() {
-            container.innerHTML = '';
-            ofim.innerHTML = "acabou";
+            container.innerHTML = '<h1>You Win!</h1><img src="https://media.giphy.com/media/cO0dlKKyFGc5q/giphy.gif" alt="Cupcake dancing">';
+            ofim.innerHTML = "<button class='button' type='button' onClick='reload()'> Repita a dose unica </button>";
+        };
+
+        function reload(){
+            location.reload();
         };
 
         //Primeira função:escreve uma div por coluna
@@ -118,6 +129,7 @@
         //movimento
         document.addEventListener('keydown', function (event) {
             if (event.keyCode === 38) {
+
                 andar("cima")
             }
 

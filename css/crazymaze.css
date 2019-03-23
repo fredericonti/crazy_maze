@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo+Chettan');
+
 body {
 	height: 100%;
     overflow:hidden;
 	color: #fff;
-	background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
-	background-size: 400% 400%;
+	background: linear-gradient(-90deg, #EE7752, #E73C7E, rgb(2, 230, 247), rgb(12, 194, 151));
+	background-size: 500% 500%;
 	-webkit-animation: Gradient 15s ease infinite;
 	-moz-animation: Gradient 15s ease infinite;
-	animation: Gradient 15s ease infinite;
+    animation: Gradient 15s ease infinite;
+    
 }
 
 @-webkit-keyframes Gradient {
@@ -45,27 +48,42 @@ body {
 	}
 }
 
+body{
+    text-align: center;
+    background-color:lightgreen;
+}
+
+h1 {
+    font-family: 'Baloo Chettan', cursive;
+}
+
+.background{
+    padding: 0;
+    display: flex;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.final {
+    display:flex;
+    justify-content: center;
+}
+
 #container {
-    width: auto;
     display: block;
     margin-top: 100px;
     border-image: url("../images/block.png");
 }
 
 #ofim {
-    display: block;
-    justify-content: center;    
     color: #23A6D5;
-    width: 40px;
-    background-color:#fff;
+    text-align: center;
 }
 
 .linha {
-    
     width: 100%;
-    display: flex;  
-    justify-content: center;
-    align-content: center;
+    display: flex;
 }
 
 .linha div {
@@ -73,6 +91,11 @@ body {
     height: 20px;
     border: 1px solid white;
 
+}
+
+.div.logo{
+    background-image: url("../images/logo.gif");
+    background-repeat: no-repeat;
 }
 
 div.empty {
@@ -100,5 +123,62 @@ div.win {
 }
 
 div.candy {
-    background-image: url("../images/sugar.png");
+    background-image: url("../images/candy_1.gif");
+}
+
+div.candy2 {
+    background-image: url("../images/candy_2.gif");
+}
+
+div.candy3 {
+    background-image: url("../images/candy_3.gif");
+}
+
+div.candy4 {
+    background-image: url("../images/candy_4.gif");
+}
+
+div.candy5 {
+    background-image: url("../images/candy_5.gif");
+}
+
+div.candy6 {
+    background-image: url("../images/candy_6.gif");
+}
+
+div.candy7 {
+    background-image: url("../images/candy_7.gif");
+}
+
+.button {
+    margin-top: 30px;
+    background-color: black;
+    font-family: 'Baloo Chettan', cursive;
+    display: block;
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 30px;
+    background-color: rgb(220, 0, 154);
+    background-image: linear-gradient(to top left,
+                                      rgba(0, 0, 0, .2),
+                                      rgba(0, 0, 0, .2) 30%,
+                                      rgba(0, 0, 0, 0));
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+                inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+
+.button:hover {
+    display: block;
+    background-color: rgb(220, 0, 154);
+}
+
+.button:active {
+    display: block;
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+                inset 2px 2px 3px rgba(0, 0, 0, .6);
 }
