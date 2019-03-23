@@ -59,10 +59,12 @@ h1 {
 
 .background{
     padding: 0;
+    margin:0;
     display: flex;
     text-align: center;
     align-content: center;
     justify-content: center;
+    
 }
 
 .final {
@@ -72,7 +74,7 @@ h1 {
 
 #container {
     display: block;
-    margin-top: 100px;
+    margin-top: 3px;
     border-image: url("../images/block.png");
 }
 
@@ -93,9 +95,10 @@ h1 {
 
 }
 
-.div.logo{
-    background-image: url("../images/logo.gif");
-    background-repeat: no-repeat;
+#logo{
+    height: 20%;
+    width: 20%;
+    float: inline-start;
 }
 
 div.empty {
